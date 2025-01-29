@@ -1,17 +1,23 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { ValidationPipe } from "@nestjs/common";
 
 async function start() {
   try {
     const PORT = process.env.PORT || 3030;
 
     const app = await NestFactory.create(AppModule);
+    app.useGlobalPipes(
+      new ValidationPipe()
+    );
+
 
     const config = new DocumentBuilder()
       .setTitle("Komron")
       .setDescription("maqtash shart emas bilaman zo'r chiqan")
       .setVersion("mirzo033") 
+      .addBearerAuth()
       .build();
     const document = SwaggerModule.createDocument(app, config);
     
