@@ -5,7 +5,7 @@ interface IPayment_TypeAtrr {
   name: string;
 }
 
-@Table({ tableName: "venue_type" })
+@Table({ tableName: "payment_method" })
 export class PaymentMethod extends Model<PaymentMethod, IPayment_TypeAtrr> {
   @Column({
     type: DataType.INTEGER,

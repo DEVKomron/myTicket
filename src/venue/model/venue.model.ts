@@ -4,6 +4,8 @@ import { Region } from "src/region/model/region.model";
 import { VenueType } from "src/venue_type/models/venue_type.model";
 import { VenueVenuetype } from "src/venue_venuetype/model/venue_venuetype.model";
 import { Event } from "../../event/model/event.model";
+import { Seat } from "../../seat/model/seat.model";
+import { VenuePhoto } from "../../venue_photo/model/venue_photo.model";
 
 interface IVenueAtrr {
   name: string;
@@ -15,7 +17,7 @@ interface IVenueAtrr {
   regionId: number;
   districtId: number;
 }
-@Table({tableName : "venue"})
+@Table({ tableName: "venue" })
 export class Venue extends Model<Venue, IVenueAtrr> {
   @Column({
     type: DataType.INTEGER,
@@ -41,42 +43,43 @@ export class Venue extends Model<Venue, IVenueAtrr> {
   })
   site: string;
 
-
   @Column({
     type: DataType.STRING(50),
   })
   phone: string;
-
 
   @Column({
     type: DataType.STRING(50),
   })
   schema: string;
 
-
-  @ForeignKey(()=> Region)
+  @ForeignKey(() => Region)
   @Column({
     type: DataType.INTEGER,
   })
   regionId: number;
 
-  @ForeignKey(()=> District)
+  @ForeignKey(() => District)
   @Column({
     type: DataType.INTEGER,
   })
   districtId: number;
 
-
   @BelongsTo(() => Region)
-  region: Region
+  region: Region;
 
-  @BelongsTo(()=> District)
-  district: District
+  @BelongsTo(() => District)
+  district: District;
 
-  @BelongsToMany(()=> VenueType, ()=>VenueVenuetype)
-  venutypes:VenueType[]
+  @BelongsToMany(() => VenueType, () => VenueVenuetype)
+  venutypes: VenueType[];
 
-    @HasMany(()=> Event)
-    event : Event
+  @HasMany(() => Event)
+  event: Event;
 
+  @HasMany(() => Seat)
+  seat: Seat;
+
+  @HasMany(() => VenuePhoto)
+  venue_photo: VenuePhoto;
 }

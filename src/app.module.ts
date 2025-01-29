@@ -48,6 +48,9 @@ import { CartItemModule } from './cart_item/cart_item.module';
 import { CartItem } from "./cart_item/model/cart_item.model";
 import { CartStatus } from "./cart_status/models/cart_status.model";
 import { DiscountCoupon } from "./discount_coupon/model/discount_coupon.model";
+import { SeatModule } from './seat/seat.module';
+import { Seat } from "./seat/model/seat.model";
+import { VenuePhoto } from "./venue_photo/model/venue_photo.model";
 
 @Module({
   imports: [
@@ -84,7 +87,9 @@ import { DiscountCoupon } from "./discount_coupon/model/discount_coupon.model";
         BookingStatus,
         CartItem,
         CartStatus,
-        DiscountCoupon
+        DiscountCoupon,
+        Seat,
+        VenuePhoto
       ],
       autoLoadModels: true,
       sync: { alter: false },
@@ -112,6 +117,7 @@ import { DiscountCoupon } from "./discount_coupon/model/discount_coupon.model";
     AuthModule,
     BookingModule,
     CartItemModule,
+    SeatModule,
   ],
   controllers: [],
   providers: [],
