@@ -9,7 +9,7 @@ export class SignInDto {
   @IsEmail()
   readonly email: string;
 
-//   @IsStrongPassword({ minLength: 4})
+  // @IsStrongPassword({ minLength: 4},{message : "Parol yetarlicha mustahkam emas"})
   readonly password: string;
 
   @IsString()

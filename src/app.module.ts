@@ -51,10 +51,22 @@ import { DiscountCoupon } from "./discount_coupon/model/discount_coupon.model";
 import { SeatModule } from './seat/seat.module';
 import { Seat } from "./seat/model/seat.model";
 import { VenuePhoto } from "./venue_photo/model/venue_photo.model";
+import { FileModule } from './file/file.module';
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { join } from "path";
+import { SingleFileService } from "./single-file.service";
+import { MultiFileService } from "./multi-file.service";
+import { SingleFileController } from "./single-file.controller";
+import { MultiFileController } from "./multi-file.controller";
+import { Admin } from "./admin/model/admin.model";
+import { AdminModule } from "./admin/admin.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: ".env", isGlobal: true }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "..", "static"),
+    }),
     SequelizeModule.forRoot({
       dialect: "postgres",
       host: process.env.POSTGRES_HOST,
@@ -81,7 +93,7 @@ import { VenuePhoto } from "./venue_photo/model/venue_photo.model";
         Cart,
         Customer,
         Role,
-        User, 
+        User,
         UserRole,
         Booking,
         BookingStatus,
@@ -89,7 +101,8 @@ import { VenuePhoto } from "./venue_photo/model/venue_photo.model";
         CartStatus,
         DiscountCoupon,
         Seat,
-        VenuePhoto
+        VenuePhoto,
+        Admin
       ],
       autoLoadModels: true,
       sync: { alter: false },
@@ -118,8 +131,10 @@ import { VenuePhoto } from "./venue_photo/model/venue_photo.model";
     BookingModule,
     CartItemModule,
     SeatModule,
+    FileModule,
+    AdminModule
   ],
-  controllers: [],
-  providers: [],
+  controllers: [SingleFileController, MultiFileController],
+  providers: [SingleFileService, MultiFileService],
 })
 export class AppModule {}
