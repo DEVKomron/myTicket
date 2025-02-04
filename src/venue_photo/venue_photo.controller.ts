@@ -1,15 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { VenuePhotoService } from './venue_photo.service';
-import { CreateVenuePhotoDto } from './dto/create-venue_photo.dto';
-import { UpdateVenuePhotoDto } from './dto/update-venue_photo.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UploadedFile,
+} from "@nestjs/common";
+import { VenuePhotoService } from "./venue_photo.service";
+import { CreateVenuePhotoDto } from "./dto/create-venue_photo.dto";
+import { UpdateVenuePhotoDto } from "./dto/update-venue_photo.dto";
 
-@Controller('venue-photo')
+@Controller("venue-photo")
 export class VenuePhotoController {
   constructor(private readonly venuePhotoService: VenuePhotoService) {}
 
   @Post()
-  create(@Body() createVenuePhotoDto: CreateVenuePhotoDto) {
-    return this.venuePhotoService.create(createVenuePhotoDto);
+  create(
+    @Body() createVenuePhotoDto: CreateVenuePhotoDto,
+    @UploadedFile() image: any
+  ) {
+    return this.venuePhotoService.create(createVenuePhotoDto, image);
   }
 
   @Get()
@@ -17,18 +29,21 @@ export class VenuePhotoController {
     return this.venuePhotoService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.venuePhotoService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVenuePhotoDto: UpdateVenuePhotoDto) {
+  @Patch(":id")
+  update(
+    @Param("id") id: string,
+    @Body() updateVenuePhotoDto: UpdateVenuePhotoDto
+  ) {
     return this.venuePhotoService.update(+id, updateVenuePhotoDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.venuePhotoService.remove(+id);
   }
 }
